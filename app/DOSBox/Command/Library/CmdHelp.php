@@ -2,86 +2,83 @@
 
 namespace DOSBox\Command\Library;
 
+use DOSBox\Command\BaseCommand as Command;
 use DOSBox\Interfaces\IDrive;
 use DOSBox\Interfaces\IOutputter;
-use DOSBox\Command\BaseCommand as Command;
 
-class CmdHelp extends Command {
-    public function __construct($commandName, IDrive $drive){
+class CmdHelp extends Command
+{
+    const HELP_CONTENTS = [
+        'cd' => "CD Displays the name of or changes the current directory.",
+        'dir' => "DIR Displays a list of files and subdirectories in a directory.",
+        'exit' => "EXIT Quits the CMD.EXE program (command interpreter).",
+        'format' => "FORMAT Formats a disk for use with Windows.",
+        'help' => "HELP Provides Help information for Windows commands.",
+        'label' => "LABEL Creates, changes, or deletes the volume label of disk.",
+        'mkdir' => "MKDIR Creates a directory",
+        'mkfile' => "MKFILE Created a file.",
+        'move' => "MOVE Moves one or more files from one directory to another directory.",
+    ];
+
+    const HELP_ERROR = "Fatal Error: This command is not supported by the help utility.";
+
+    function __construct($commandName, IDrive $drive)
+    {
         parent::__construct($commandName, $drive);
     }
 
-    public function checkNumberOfParameters($numberOfParametersEntered) {
+    function checkNumberOfParameters($numberOfParametersEntered)
+    {
         return true;
     }
 
-    public function checkParameterValues(IOutputter $outputter) {
+    function checkParameterValues(IOutputter $outputter)
+    {
         return true;
     }
 
-    public function execute(IOutputter $outputter){
+    function execute(IOutputter $outputter)
+    {
 
-
-        if($this->getParameterCount() <= 0) {
-
-            $outputter->printLine("CD Displays the name of or changes the current directory.");
-            $outputter->printLine("DIR Displays a list of files and subdirectories in a directory.");
-            $outputter->printLine("EXIT Quits the CMD.EXE program (command interpreter).");
-            $outputter->printLine("FORMAT Formats a disk for use with Windows.");
-            $outputter->printLine("HELP Provides Help information for Windows commands.");
-            $outputter->printLine("LABEL Creates, changes, or deletes the volume label of disk.");
-            $outputter->printLine("MKDIR Creates a directory");
-            $outputter->printLine("MKFILE Created a file.");
-            $outputter->printLine("MOVE Moves one or more files from one directory to another directory.");
-
+        if ($this->getParameterCount() <= 0) {
+            $outputter->printLine(implode("\n", array_values(self::HELP_CONTENTS)));
         } else {
 
-            $commandName = $this->params[0];
+            $commandName = strtolower($this->params[0]);
 
             switch ($commandName) {
-                case 'CD':
                 case 'cd':
-                    $outputter->printLine("CD Displays the name of or changes the current directory.");
+                    $outputter->printLine(self::HELP_CONTENTS["cd"]);
                     break;
-                case 'DIR':
                 case 'dir':
-                    $outputter->printLine("DIR Displays a list of files and subdirectories in a directory.");
+                    $outputter->printLine(self::HELP_CONTENTS["dir"]);
                     break;
-                case 'EXIT':
                 case 'exit':
-                    $outputter->printLine("EXIT Quits the CMD.EXE program (command interpreter).");
+                    $outputter->printLine(self::HELP_CONTENTS["exit"]);
                     break;
-                case 'FORMAT':
                 case 'format':
-                    $outputter->printLine("FORMAT Formats a disk for use with Windows.");
+                    $outputter->printLine(self::HELP_CONTENTS["format"]);
                     break;
-                case 'HELP':
                 case 'help':
-                    $outputter->printLine("HELP Provides Help information for Windows commands.");
+                    $outputter->printLine(self::HELP_CONTENTS["help"]);
                     break;
-                case 'LABEL':
                 case 'label':
-                    $outputter->printLine("LABEL Creates, changes, or deletes the volume label of disk.");
+                    $outputter->printLine(self::HELP_CONTENTS["label"]);
                     break;
-                case 'MKDIR':
                 case 'mkdir':
-                    $outputter->printLine("MKDIR Creates a directory");
+                    $outputter->printLine(self::HELP_CONTENTS["mkdir"]);
                     break;
-                case 'MKFILE':
                 case 'mkfile':
-                    $outputter->printLine("MKFILE Created a file.");
+                    $outputter->printLine(self::HELP_CONTENTS["mkfile"]);
                     break;
-                case 'MOVE':
                 case 'move':
-                    $outputter->printLine("MOVE Moves one or more files from one directory to another directory.");
+                    $outputter->printLine(self::HELP_CONTENTS["move"]);
                     break;
 
                 default:
-                    $outputter->printLine("This command is not supported by the help utility.");
+                    $outputter->printLine(self::HELP_ERROR);
                     break;
             }
-
         }
     }
-
 }
