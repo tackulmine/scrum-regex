@@ -2,27 +2,31 @@
 
 namespace DOSBox\Command\Library;
 
+use DOSBox\Command\BaseCommand as Command;
 use DOSBox\Interfaces\IDrive;
 use DOSBox\Interfaces\IOutputter;
 
-use DOSBox\Command\BaseCommand as Command;
-
-class CmdMock extends Command {
+class CmdMock extends Command
+{
     public $executed = false;
 
-    public function __construct($commandName, IDrive $drive){
+    public function __construct($commandName, IDrive $drive)
+    {
         parent::__construct($commandName, $drive);
     }
 
-    public function checkNumberOfParameters($numberOfParametersEntered) {
+    public function checkNumberOfParameters($numberOfParametersEntered)
+    {
         return true;
     }
 
-    public function checkParameterValues(IOutputter $outputter) {
+    public function checkParameterValues(IOutputter $outputter)
+    {
         return true;
     }
 
-    public function execute(IOutputter $outputter){
+    public function execute(IOutputter $outputter)
+    {
         $this->executed = true;
     }
 }

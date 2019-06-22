@@ -17,17 +17,17 @@ class CmdVer extends Command
         'Andre - setiadiandre10@gmail.com',
     ];
 
-    function __construct($commandName, IDrive $drive)
+    public function __construct($commandName, IDrive $drive)
     {
         parent::__construct($commandName, $drive);
     }
 
-    function checkNumberOfParameters($numberOfParametersEntered)
+    public function checkNumberOfParameters($numberOfParametersEntered)
     {
         return $numberOfParametersEntered >= 0 ? true : false;
     }
 
-    function checkParameterValues(IOutputter $outputter)
+    public function checkParameterValues(IOutputter $outputter)
     {
         for ($i = 0; $i < $this->getParameterCount(); $i++) {
             if ($this->parameterContainsBacklashes($this->getParameterAt($i), $outputter)) {
@@ -38,7 +38,7 @@ class CmdVer extends Command
     }
 
     // TODO: Unit test
-    function parameterContainsBacklashes($parameter, IOutputter $outputter)
+    public function parameterContainsBacklashes($parameter, IOutputter $outputter)
     {
         // Do not allow "mkdir c:\temp\dir1" to keep the command simple
         /*if (strstr($parameter, "\\") !== false || strstr($parameter, "/") !== false) {
@@ -50,7 +50,7 @@ class CmdVer extends Command
         return false;
     }
 
-    function execute(IOutputter $outputter)
+    public function execute(IOutputter $outputter)
     {
 
         if ($this->getParameterCount() == 0) {
