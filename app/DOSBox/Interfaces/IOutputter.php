@@ -2,7 +2,8 @@
 
 namespace DOSBox\Interfaces;
 
-interface IOutputter {
+interface IOutputter
+{
     public function printLine($text);
 
     public function printNoLine($text);

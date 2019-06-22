@@ -2,14 +2,16 @@
 
 namespace DOSBox\System;
 
-use DOSBox\Filesystem\Drive as Drive;
 use DOSBox\Command\CommandFactory as CommandFactory;
 use DOSBox\Command\CommandInvoker as CommandInvoker;
 use DOSBox\Console\Console;
 use DOSBox\Console\ConsoleOutputter;
+use DOSBox\Filesystem\Drive as Drive;
 
-class Configurator {
-    public function configureSystem() {
+class Configurator
+{
+    public function configureSystem()
+    {
         $drive = new Drive("C");
         $drive->restore();
 

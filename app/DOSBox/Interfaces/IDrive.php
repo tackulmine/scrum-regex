@@ -4,12 +4,12 @@ namespace DOSBox\Interfaces;
 
 use DOSBox\Filesystem\Directory;
 
-interface IDrive {
+interface IDrive
+{
     /**Sets drive label, as used in command VOL and LABEL
      * @param newLabel new label. Any text, may contain spaces
      */
     public function setLabel($newLabel);
-
 
     /**Sets drive label, as used in command VOL and LABEL
      * @return current drive label
